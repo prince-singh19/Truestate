@@ -1,26 +1,30 @@
-// backend/src/index.js (MODIFIED)
-
 require('dotenv').config();
-// 🚨 Import the app handler from the serverless file 🚨
-const app = require('../api'); 
+const express = require('express');
+const cors = require('cors');
 const connectDB = require('./utils/db');
+const salesRoutes = require('./routes/salesRoutes');
 
-const PORT = process.env.PORT || 3000;
+const app = express();
+const PORT = process.env.port || 3000;
+
+app.use(cors());
+app.use(express.json());
 
 async function startServer() {
-    try {
-        // 1. Connect to MongoDB (local persistence)
-        await connectDB();
-        
-        // 2. Start the local server listener
-        app.listen(PORT, () => {
-            console.log(`Server is running locally on http://localhost:${PORT}`);
-        });
-    } catch (error) {
-        console.error("Local Server Failed to Start:", error.message);
-        process.exit(1);
-    }
+
+    await connectDB(); 
+
+  
+    app.use('/api/sales', salesRoutes);
+    app.get('/', (req, res) => {
+        res.send('Retail Sales Management System Backend is running with MongoDB.');
+    });
+
+    // 3. Start the server
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
+    });
 }
 
 startServer();
-
+export default app;
