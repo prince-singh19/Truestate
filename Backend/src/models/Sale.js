@@ -1,5 +1,5 @@
 // backend/src/models/Sale.js
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const SaleSchema = new mongoose.Schema({
     // Customer Fields
@@ -40,4 +40,4 @@ const SaleSchema = new mongoose.Schema({
     timestamps: true 
 });
 
-module.exports = mongoose.model('Sale', SaleSchema);
+export default mongoose.model('Sale', SaleSchema);

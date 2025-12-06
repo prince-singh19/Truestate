@@ -1,8 +1,9 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./utils/db');
-const salesRoutes = require('./routes/salesRoutes');
+// ES module imports
+import 'dotenv/config'; // loads .env
+import express from 'express';
+import cors from 'cors';
+import connectDB from './utils/db.js';
+import salesRoutes from './routes/salesRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,20 +12,17 @@ app.use(cors());
 app.use(express.json());
 
 async function startServer() {
+  await connectDB();
+  app.use('/api/sales', salesRoutes);
+  app.get('/', (req, res) => {
+    res.send('Retail Sales Management System Backend is running with MongoDB.');
+  });
 
-    await connectDB(); 
-
-  
-    app.use('/api/sales', salesRoutes);
-    app.get('/', (req, res) => {
-        res.send('Retail Sales Management System Backend is running with MongoDB.');
-    });
-
-    // 3. Start the server
-    app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
-    });
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
 }
 
 startServer();
+
 export default app;

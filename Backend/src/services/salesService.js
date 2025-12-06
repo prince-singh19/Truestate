@@ -1,5 +1,4 @@
-
-const Sale = require('../models/Sale');
+import Sale from '../models/Sale.js';
 
 /**
  * Fetches sales data, applying MongoDB-based Search, Filter, Sort, and Pagination.
@@ -104,6 +103,4 @@ async function getSales(query) {
 
 }
 
-module.exports = {
-    getSales,
-};
+export default getSales;

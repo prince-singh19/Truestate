@@ -1,5 +1,4 @@
-
-const salesService = require('../services/salesService');
+import salesService from "../services/salesService.js"
 
 async function getSalesRecords(req, res) {
     try {
@@ -14,6 +13,4 @@ async function getSalesRecords(req, res) {
     }
 }
 
-module.exports = {
-    getSalesRecords,
-};
+export default getSalesRecords
