@@ -1,7 +1,7 @@
 // frontend/src/services/salesService.js
 import axios from 'axios';
 
-const BASE_URL = 'https://truestate-4ukz4n829-prince-singhs-projects-670ffebf.vercel.app';
+const BASE_URL = 'http://localhost:3000/api/sales';
 
 
 export const fetchSalesData = async (queryState) => {
