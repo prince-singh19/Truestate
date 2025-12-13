@@ -1,68 +1,24 @@
-# =========================
-#   ENVIRONMENT FILES
-# =========================
-.env
-.env.*
-*/.env
-*/.env.*
-
-# =========================
-#   NODE MODULES
-# =========================
-node_modules/
-*/node_modules/
-
-# =========================
-#   BUILD OUTPUT
-# =========================
-dist/
-build/
-*/dist/
-*/build/
-
-# =========================
-#   LOG FILES
-# =========================
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-logs/
-*.log
-*.pid
-*.seed
-*.pid.lock
+lerna-debug.log*
 
-# =========================
-#   SYSTEM FILES
-# =========================
-.DS_Store
-Thumbs.db
-Desktop.ini
-
-# =========================
-#   EDITOR FOLDERS
-# =========================
-.vscode/
-.idea/
-*.swp
-
-# =========================
-#   TYPESCRIPT
-# =========================
-*.tsbuildinfo
-
-# =========================
-#   MONGO / DATABASE
-# =========================
-dump/
-*.bson
-*.sql
-
-# =========================
-#   OTHER FILES
-# =========================
-.env.backup
+node_modules
+dist
+dist-ssr
 *.local
-.cache/
-.temp/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
