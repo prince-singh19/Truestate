@@ -1,40 +1,51 @@
-
-import React from 'react';
+import React from "react";
 
 const PaginationControls = ({ pagination, dispatch }) => {
-    const { currentPage, totalPages, totalRecords } = pagination;
+  const { currentPage, totalPages } = pagination;
+  const MAX_VISIBLE = 5;
 
-    const handlePageChange = (newPage) => {
-        if (newPage >= 1 && newPage <= totalPages) {
-            dispatch({ type: 'SET_PAGE', payload: newPage });
-        }
-    };
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      dispatch({ type: "SET_PAGE", payload: page });
+    }
+  };
 
-    return (
-        <div className="flex justify-end items-center p-4 border-t border-gray-200 bg-white space-x-3">
-            <span className="text-sm text-gray-600 mr-4">
-                Page {currentPage || 0} of {totalPages || 0} (Total Records: {totalRecords || 0})
-            </span>
-            
-            <button 
-                onClick={() => handlePageChange(currentPage - 1)} 
-                disabled={currentPage <= 1}
-                className="px-3 py-1 bg-blue-500 text-white rounded-md text-sm disabled:bg-gray-400 transition-colors hover:bg-blue-600"
-            >
-                &larr; Previous
-            </button>
-            
-            <span className="font-semibold text-gray-800 text-sm">{currentPage}</span>
-            
-            <button 
-                onClick={() => handlePageChange(currentPage + 1)} 
-                disabled={currentPage >= totalPages}
-                className="px-3 py-1 bg-blue-500 text-white rounded-md text-sm disabled:bg-gray-400 transition-colors hover:bg-blue-600"
-            >
-                Next &rarr;
-            </button>
-        </div>
-    );
+  const getVisiblePages = () => {
+    let start = Math.max(1, currentPage - Math.floor(MAX_VISIBLE / 2));
+    let end = start + MAX_VISIBLE - 1;
+
+    if (end > totalPages) {
+      end = totalPages;
+      start = Math.max(1, end - MAX_VISIBLE + 1);
+    }
+
+    const pages = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
+
+  return (
+    <div className="flex justify-center items-center py-4 border-t bg-white">
+      <div className="flex gap-2">
+        {getVisiblePages().map((page) => (
+          <button
+            key={page}
+            onClick={() => handlePageChange(page)}
+            className={`w-8 h-8 rounded-md border text-sm font-medium transition
+              ${
+                page === currentPage
+                  ? "bg-black text-white border-black"
+                  : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+              }`}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default PaginationControls;

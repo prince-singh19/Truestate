@@ -1,13 +1,9 @@
 import Sale from '../models/Sale.js';
-
-/**
- * Fetches sales data, applying MongoDB-based Search, Filter, Sort, and Pagination.
- */
 async function getSales(query) {
     const { 
         page = 1, 
         limit = 10, 
-        sortBy = 'Date', // Use original column name for consistency
+        sortBy = 'Date', 
         sortOrder = 'desc', 
         search, 
         minAmount,
@@ -16,19 +12,12 @@ async function getSales(query) {
         maxAge,
         ...filters 
     } = query;
-
-    // --- 1. BUILD FILTER OBJECT (Filtering & Searching) ---
     const filter = {};
-    
-    // Add simple equality filters (Gender, Category, etc.)
     for (const key in filters) {
-        // Only include fields defined in the schema (e.g., 'Gender', not 'page')
         if (Sale.schema.paths[key] && filters[key]) {
             filter[key] = filters[key];
         }
     }
-
-    // Range Filters
     if (minAmount || maxAmount) {
         filter['Final Amount'] = {};
         if (minAmount) filter['Final Amount'].$gte = parseFloat(minAmount);
@@ -50,16 +39,14 @@ async function getSales(query) {
                 { 'Transaction ID': searchRegex },
             ]
         };
-        // Merge search conditions with existing filters
         filter.$and = filter.$and ? [...filter.$and, searchConditions] : [searchConditions];
     }
     
-    // --- 2. PAGINATION & TOTAL COUNT ---
     const skip = (page - 1) * limit;
     const totalRecords = await Sale.countDocuments(filter);
 
     // --- 3. SORTING ---
-    const sort = { [sortBy]: sortOrder === 'desc' ? -1 : 1 }; // -1 for DESC, 1 for ASC
+    const sort = { [sortBy]: sortOrder === 'desc' ? -1 : 1 }; 
 
     // --- 4. FETCH DATA ---
     const data = await Sale.find(filter)
