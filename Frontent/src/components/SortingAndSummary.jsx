@@ -22,9 +22,10 @@ const SortingAndSummary = ({ summary, queryState, dispatch }) => {
     const displayOrder = sortOrder === 'asc' ? ' (ASC)' : ' (DESC)';
 
     return (
-        <div className="flex justify-between items-center p-4 border-b border-gray-200 bg-white">
+        <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 bg-white
+">
             {/* KPI Summary Cards */}
-            <div className="flex gap-4">
+            <div className="flex gap-1">
                 <SummaryCard title="Total Units Sold" value={summary.totalUnitsSold || 0} />
                 <SummaryCard title="Total Amount" value={`₹${summary.totalAmount || '0.00'}`} />
                 <SummaryCard title="Total Discount" value={`${summary.totalDiscount || '0.00'}`} />
