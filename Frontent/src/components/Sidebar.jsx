@@ -21,7 +21,7 @@ const Sidebar = () => {
     const [isInvoicesOpen, setIsInvoicesOpen] = useState(true);
 
     return (
-        <div className="w-64 bg-white h-screen border-r border-gray-200 flex flex-col sticky top-0 font-sans z-20 shrink-0">
+        <div className="w-55 bg-white h-screen border-r border-gray-200 flex flex-col sticky top-0 font-sans z-20 shrink-0">
             {/* Logo Section */}
             <div className="h-16 flex items-center px-5 border-b border-gray-100">
                 <div className="flex items-center gap-3">
